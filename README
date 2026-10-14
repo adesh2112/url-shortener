@@ -1,0 +1,28 @@
+@'
+# URL Shortener
+
+A URL shortener built with Java Spring Boot, PostgreSQL and Redis.
+
+## Features
+- Create short links (Base62 encoding of the database ID, so no collisions)
+- 302 redirect to the original URL
+- Redis cache-aside with a 1-hour TTL (falls back to Postgres if Redis is down)
+- Click analytics per link
+- Input validation and clean 400/404 error responses
+
+## Tech stack
+Java 17, Spring Boot, Spring Data JPA, PostgreSQL 16, Redis 7, Docker Compose
+
+## Run locally
+1. Start the database and cache: `docker compose up -d`
+2. Start the app: `./mvnw spring-boot:run`
+3. Create a link: `POST http://localhost:8080/api/urls` with `{"longUrl":"https://example.com"}`
+4. Open the returned short URL in the browser
+
+## API
+| Method | Path | Description |
+|---|---|---|
+| POST | /api/urls | Create a short link |
+| GET | /{code} | Redirect to the original URL |
+| GET | /api/urls/{code}/stats | Click count and details |
+'@ | Set-Content README.md -Encoding utf8
